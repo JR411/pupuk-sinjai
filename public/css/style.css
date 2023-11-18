@@ -1,0 +1,128 @@
+.login-logo {
+    text-align: center;
+    margin-right: -70px;
+    margin-left: -170px;
+    padding-left: 170px;
+    text-align: left;
+}
+
+.login-logo img {
+    position: relative;
+    bottom: 50px;
+    left: 350px;
+    width: 200px;
+    height: 250px;
+}
+
+.login-logo h1 {
+    position: relative;
+    top: 8px;
+    text-indent: 250px;
+    font-weight: bold;
+}
+
+.card {
+    margin-top: 80px;
+    margin-right: -250px;
+    margin-left: 250px;
+    padding-left: 10px;
+}
+
+.rightside {
+    height: 100vh;
+    width: 100%;
+}
+
+.leftside {
+    position: relative;
+    top: 300px;
+    text-indent: -700px;
+    margin-left: 65px;
+    margin-top: 100px;
+}
+
+.leftside h1 {
+    position: relative;
+    left: 10px;
+}
+
+.rightside {
+    background-size: 2000px;
+    background-color: #dcdcdc;
+    width: 900px;
+    text-indent: 300px;
+    margin-left: 654px;
+    position: relative;
+    bottom: 100px;
+}
+
+.rightside img {
+    width: 300px;
+    height: 350px;
+    position: relative;
+    top: 300px;
+}
+
+.hero {
+    width: 100%;
+    position: relative;
+    background-color: #3e7bc2;
+    padding: 25px 0 0 0;
+}
+
+.hero .content-box:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: calc(70%);
+    background-color: #fff;
+}
+
+.active {
+    background-color: #ffffff;
+    color: #3e7bc2;
+}
+
+.gambar-info {
+    display: block;
+    max-width: 90%;
+    max-height: 135px;
+    width: auto;
+    height: auto;
+    margin: auto;
+}
+
+.gambar-detail {
+    height: 304px;
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+}
+
+@media screen and (min-width: 576px) {
+    .dropdown-atas {
+        position: absolute !important ;
+        top: 160px !important;
+        right: 100px !important;
+    }
+    .nav-atas {
+        top: 150px !important;
+        left: 50px !important;
+        position: absolute !important;
+    }
+}
+@media screen and (min-width: 992px) {
+    .dropdown-atas {
+        position: absolute !important;
+        top: 90px !important;
+        right: 260px !important;
+    }
+    .nav-atas {
+        top: 0px !important;
+        left: 0px !important;
+        position: relative !important;
+    }
+}
