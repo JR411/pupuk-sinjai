@@ -3,12 +3,12 @@
     "short_name": "LPT",
     "start_url": "/index.php",
     "background_color": "#6777ef",
-    "description": "Tutorial of Laravel Package",
+    "description": "Pupuk Sinjai",
     "display": "fullscreen",
     "theme_color": "#6777ef",
     "icons": [
         {
-            "src": "1.PNG",
+            "src": "1.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any maskable"

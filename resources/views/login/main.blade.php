@@ -8,7 +8,7 @@
 
     <!-- PWA  -->
     <meta name="theme-color" content="#6777ef" />
-    <link rel="apple-touch-icon" href="{{ asset('1.PNG') }}">
+    <link rel="apple-touch-icon" href="{{ asset('1.png') }}">
     <link rel="manifest" href="{{ asset('/manifest.json') }}">
 
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet">

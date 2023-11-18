@@ -10,8 +10,21 @@ self.addEventListener("install", function (event) {
 });
 
 const filesToCache = [
-    '/',
-    '/offline.html'
+    "/",
+    "/offline.html",
+    "/css/adminlte.min.css",
+    "/css/bootstrap.min.css",
+    "/css/login.css",
+    "/css/style.css",
+    "/css/validasi.css",
+    "/js/main.js",
+    "/js/bootstrap.bundle.min.js",
+    "/js/bootstrap.min.js",
+    "/js/jquery.min.js",
+    "/js/popper.js",
+    "/img/LOGO PORBIO-01.png",
+    "/img/sinjai.png",
+    "/1.png",
 ];
 
 const checkResponse = function (request) {
@@ -47,10 +60,12 @@ const returnFromCache = function (request) {
 };
 
 self.addEventListener("fetch", function (event) {
-    event.respondWith(checkResponse(event.request).catch(function () {
-        return returnFromCache(event.request);
-    }));
-    if(!event.request.url.startsWith('http')){
+    event.respondWith(
+        checkResponse(event.request).catch(function () {
+            return returnFromCache(event.request);
+        })
+    );
+    if (!event.request.url.startsWith("http")) {
         event.waitUntil(addToCache(event.request));
     }
 });

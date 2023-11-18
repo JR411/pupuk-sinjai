@@ -54,7 +54,7 @@ class LoginController extends Controller
         if (Auth::user()) {
             return redirect()->intended('/informasi-pupuk');
         }
-        
+
         return view('login.daftar-distributor');
     }
 
