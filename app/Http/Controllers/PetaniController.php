@@ -121,19 +121,19 @@ class PetaniController extends Controller
     {
         $petani = Petani::findorfail($id);
 
-         if ($request->status) {
-            $petani->users()->update([
-                'status' => $request->status
-            ]);
-
-            if($request->ket){
-                $petani->update([
-                    'ket' => $request->ket
+            if ($request->status) {
+                $petani->users()->update([
+                    'status' => $request->status
                 ]);
-            }
 
-            return back()->with('status', 'Akun ' . $petani->nama . ' ' . $request->status);
-        }
+                if($request->ket){
+                    $petani->update([
+                        'ket' => $request->ket
+                    ]);
+                }
+
+                return back()->with('status', 'Akun ' . $petani->nama . ' ' . $request->status);
+            }
 
         $valid = $request->validate([
             'nama' => 'required|min:3',

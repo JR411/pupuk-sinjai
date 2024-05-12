@@ -18,21 +18,22 @@ class PemerintahController extends Controller
         return view('pemerintah.data-akun')->with(compact('user', 'semua', 'pemerintah'));
     }
 
-    public function petani()
-    {
-        $petani = User::with('petanis')->orderByDesc('updated_at')->where('status', 'Sedang Diproses')->where('kategori', 'Petani')->paginate(10)->withQueryString();
-        $pemerintah = User::where('id', Auth::user()->id)->first();
+    // public function petani()
+    // {
+    //     $petani = User::with('petanis')->orderByDesc('updated_at')->where('status', 'Sedang Diproses')->where('kategori', 'Petani')->paginate(10)->withQueryString();
+    //     $pemerintah = User::where('id', Auth::user()->id)->first();
 
-        return view('pemerintah.validasi-petani')->with(compact('petani', 'pemerintah'));
-    }
+    //     return view('pemerintah.validasi-petani')->with(compact('petani', 'pemerintah'));
+    // }
 
-    public function distributor()
-    {
-        $distributor = User::with('distributors')->orderByDesc('updated_at')->where('status', 'Sedang Diproses')->where('kategori', 'Distributor')->paginate(10)->withQueryString();
-        $pemerintah = User::where('id', Auth::user()->id)->first();
+    // public function distributor()
+    // {
+    //     $distributor = User::with('distributors')->orderByDesc('updated_at')->where('status', 'Sedang Diproses')->where('kategori', 'Distributor')->paginate(10)->withQueryString();
+    //     $pemerintah = User::where('id', Auth::user()->id)->first();
 
-        return view('pemerintah.validasi-distributor')->with(compact('distributor', 'pemerintah'));
-    }
+    //     return view('pemerintah.validasi-distributor')->with(compact('distributor', 'pemerintah'));
+    // }
+
     public function riwayat(Request $request)
     {
         $pesan = Pesan::with(['petanis', 'distributors'])->orderByDesc('updated_at')->pemerintah(request(['search']))->paginate(10)->withQueryString();

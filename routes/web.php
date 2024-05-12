@@ -37,8 +37,8 @@ Route::get('/distributor/data-pengiriman', [DistributorController::class, 'pengi
 Route::get('/distributor/riwayat-pesanan', [DistributorController::class, 'riwayat'])->middleware(['distributor', 'auth']);
 Route::resource('/distributor', DistributorController::class)->middleware('auth');
 
-Route::get('/pemerintah/validasi-petani', [PemerintahController::class, 'petani'])->middleware(['pemerintah', 'auth']);
-Route::get('/pemerintah/validasi-distributor', [PemerintahController::class, 'distributor'])->middleware(['pemerintah', 'auth']);
+// Route::get('/pemerintah/validasi-petani', [PemerintahController::class, 'petani'])->middleware(['pemerintah', 'auth']);
+// Route::get('/pemerintah/validasi-distributor', [PemerintahController::class, 'distributor'])->middleware(['pemerintah', 'auth']);
 Route::get('/pemerintah/riwayat-pesanan', [PemerintahController::class, 'riwayat'])->middleware(['pemerintah', 'auth']);
 Route::get('/pemerintah', [PemerintahController::class, 'index'])->middleware(['pemerintah', 'auth']);
 

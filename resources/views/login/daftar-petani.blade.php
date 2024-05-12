@@ -54,6 +54,14 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
+        {{-- <div class="form-group mb-3">
+            <label class="label" for="desa">Nama Desa*</label>
+            <input type="text" name="desa" class="form-control @error('desa') is-invalid @enderror" placeholder="Nama Desa"
+                value="{{ old('desa') }}" required>
+            @error('desa')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div> --}}
         <div class="form-group mb-3">
             <label class="label" for="no">No HP*</label>
             <input type="text" name="no" class="form-control @error('no') is-invalid @enderror"

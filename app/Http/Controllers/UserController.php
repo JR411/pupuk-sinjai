@@ -110,6 +110,7 @@ class UserController extends Controller
                 File::delete($item->lahan);
             }
         } elseif ($user->kategori == 'Distributor') {
+            // echo $user;
             $distributor = Distributor::where('user_id', $user->id)->first();
             File::delete($distributor->sk);
             $pesan = Pesan::where('distributor_id', $distributor->id)->get();

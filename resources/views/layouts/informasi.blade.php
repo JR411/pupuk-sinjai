@@ -64,10 +64,12 @@
                                     Pupuk</a></li>
                             <li><a href="/pemerintah" class="nav-link px-2 text-white">Data
                                     Akun</a></li>
-                            <li><a href="/pemerintah/validasi-petani" class="nav-link px-2 text-white">Validasi
+                            <li><a href="/pemerintah" class="nav-link px-2 text-white">Data
+                                    Desa</a></li>
+                            {{-- <li><a href="/pemerintah/validasi-petani" class="nav-link px-2 text-white">Validasi
                                     Petani</a></li>
                             <li><a href="/pemerintah/validasi-distributor" class="nav-link px-2 text-white">Validasi
-                                    Distributor</a></li>
+                                    Distributor</a></li> --}}
                             <li><a href="/pemerintah/riwayat-pesanan" class="nav-link px-2 text-white">Riwayat
                                     Pesanan</a>
                             </li>
@@ -127,12 +129,12 @@
                                     Pupuk</a></li>
                             <li><a href="/pemerintah" class="nav-link border-start px-2 text-white">Data
                                     Akun</a></li>
-                            <li><a href="/pemerintah/validasi-petani"
+                            {{-- <li><a href="/pemerintah/validasi-petani"
                                     class="nav-link border-start px-2 text-white">Validasi
                                     Petani</a></li>
                             <li><a href="/pemerintah/validasi-distributor"
                                     class="nav-link border-start px-2 text-white">Validasi
-                                    Distributor</a></li>
+                                    Distributor</a></li> --}}
                             <li><a href="/pemerintah/riwayat-pesanan"
                                     class="nav-link border-start px-2 text-white">Riwayat Pesanan</a>
                             </li>

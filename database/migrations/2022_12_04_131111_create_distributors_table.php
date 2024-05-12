@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('distributors', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->text('lokasi_dist');
+            $table->text('lokasi_dist')->nullable();
             $table->string('alamat')->nullable();
             $table->string('cv');
             $table->string('sk');
