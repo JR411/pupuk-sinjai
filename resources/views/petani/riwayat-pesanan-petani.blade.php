@@ -21,7 +21,7 @@
                         <thead class="table-secondary text-center align-middle">
                             <tr>
                                 <th scope="col" rowspan="2">No</th>
-                                <th scope="col" rowspan="2">CV Distributor</th>
+                                <th scope="col" rowspan="2">Distributor</th>
                                 <th scope="col" rowspan="2">No.Hp Distributor</th>
                                 <th scope="col" rowspan="2">Alamat</th>
                                 <th scope="col" colspan="3">Pupuk (kg)</th>
@@ -63,7 +63,19 @@
                                     <td class="text-center align-middle">{{ $pupuk_npk }} Kg</td>
                                     <td class="text-center align-middle">@rupiah($total)</td>
                                     <td class="text-center align-middle">{{ $item->created_at->format('j M Y') }}
-                                    <td class="text-center align-middle">{{ $item->status }}</td>
+                                    <td class="text-center align-middle">
+                                        @if ($item->selesai)
+                                            Selesai
+                                        @elseif ($item->kirim)
+                                            Dikirim
+                                        @elseif ($item->bayar)
+                                            Dibayar
+                                        @elseif ($item->status)
+                                            {{ $item->status }}
+                                        @else
+                                            Sedang Diproses
+                                        @endif
+                                    </td>
                                     @if ($item->status == 'Ditolak')
                                         <td class="text-center align-middle">{{ $item->ket }}</td>
                                     @else

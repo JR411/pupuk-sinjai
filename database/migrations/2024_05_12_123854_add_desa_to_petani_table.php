@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('desas', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('nama_desa');
-            $table->foreignId('distributor_id')->constrained('distributors')->onUpdate('cascade')->onDelete('cascade');
-            $table->timestamps();
+        Schema::table('petanis', function (Blueprint $table) {
+            $table->foreignId('desa_id')->constrained('desas')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -28,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('desas');
+        Schema::table('petanis', function (Blueprint $table) {
+            $table->dropColumn('desa_id');
+        });
     }
 };

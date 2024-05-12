@@ -14,14 +14,15 @@ class Distributor extends Model
 
     public function scopeCari($query, array $cari)
     {
-        $query->when($cari['search'] ?? false, function($query, $search){
-            return $query->where('cv', 'like', '%'.$search.'%')
-                        ->orwhere('no', 'like', '%'.$search.'%')
-                        ->orwhere('urea', 'like', '%'.$search.'%')
-                        ->orwhere('za', 'like', '%'.$search.'%')
-                        ->orwhere('npk', 'like', '%'.$search.'%');
+        $query->when($cari['search'] ?? false, function ($query, $search) {
+            return $query->where('cv', 'like', '%' . $search . '%')
+                ->orwhere('no', 'like', '%' . $search . '%')
+                ->orwhere('urea', 'like', '%' . $search . '%')
+                ->orwhere('za', 'like', '%' . $search . '%')
+                ->orwhere('npk', 'like', '%' . $search . '%');
         });
     }
+    
     public function users()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
@@ -30,5 +31,10 @@ class Distributor extends Model
     public function pesans()
     {
         return $this->hasMany(Pesan::class, 'distributor_id', 'id');
+    }
+
+    public function desas()
+    {
+        return $this->hasMany(Desa::class, 'distributor_id', 'id');
     }
 }

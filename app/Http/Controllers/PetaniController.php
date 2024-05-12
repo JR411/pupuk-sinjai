@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Desa;
 use App\Models\Distributor;
 use App\Models\Pesan;
 use Image;
@@ -20,11 +21,10 @@ class PetaniController extends Controller
      */
     public function index()
     {
-        if(auth()->user()->kategori != 'Petani') {
-            if(auth()->user()->kategori == 'Distributor'){
+        if (auth()->user()->kategori != 'Petani') {
+            if (auth()->user()->kategori == 'Distributor') {
                 return redirect('/distributor');
-            }
-            elseif(auth()->user()->kategori == 'Pemerintah'){
+            } elseif (auth()->user()->kategori == 'Pemerintah') {
                 return redirect('/pemerintah');
             }
         }
@@ -33,16 +33,16 @@ class PetaniController extends Controller
         $petani = Petani::where('user_id', $user->id)->first();
         $distributor = Distributor::orderBy('cv')->get();
 
-        if ($user->status == 'Ditolak') {
-            return redirect('/petani/' . $petani->id . '/edit');
-        }
+        // if ($user->status == 'Ditolak') {
+        //     return redirect('/petani/' . $petani->id . '/edit');
+        // }
 
         $pesan = Pesan::where('petani_id', $petani->id)->orderByDesc('updated_at')->first();
 
-        if($pesan){
-            if($pesan->status == 'Diterima' && $pesan->selesai == null){
+        if ($pesan) {
+            if ($pesan->status == 'Diterima' && $pesan->selesai == null) {
                 return redirect('/petani/proses');
-            } elseif($pesan->status == null){
+            } elseif ($pesan->status == null) {
                 return redirect('/petani/proses');
             }
         }
@@ -90,24 +90,24 @@ class PetaniController extends Controller
      */
     public function edit($id)
     {
-        if(auth()->user()->kategori != 'Petani') {
-            if(auth()->user()->kategori == 'Distributor'){
+        if (auth()->user()->kategori != 'Petani') {
+            if (auth()->user()->kategori == 'Distributor') {
                 return redirect('/distributor');
-            }
-            elseif(auth()->user()->kategori == 'Pemerintah'){
+            } elseif (auth()->user()->kategori == 'Pemerintah') {
                 return redirect('/pemerintah');
             }
         }
 
         $user = User::findorfail(Auth::user()->id);
 
-        if ($user->status == 'Sedang Diproses') {
-            return redirect('/petani');
-        }
+        // if ($user->status == 'Sedang Diproses') {
+        //     return redirect('/petani');
+        // }
 
         $petani = Petani::findorfail($id);
+        $desa = Desa::orderBy('nama_desa')->get();
 
-        return view('petani.edit-profil-petani')->with(compact('petani'));
+        return view('petani.edit-profil-petani')->with(compact('petani', 'desa'));
     }
 
     /**
@@ -121,42 +121,44 @@ class PetaniController extends Controller
     {
         $petani = Petani::findorfail($id);
 
-            if ($request->status) {
-                $petani->users()->update([
-                    'status' => $request->status
+        if ($request->status) {
+            $petani->users()->update([
+                'status' => $request->status
+            ]);
+
+            if ($request->ket) {
+                $petani->update([
+                    'ket' => $request->ket
                 ]);
-
-                if($request->ket){
-                    $petani->update([
-                        'ket' => $request->ket
-                    ]);
-                }
-
-                return back()->with('status', 'Akun ' . $petani->nama . ' ' . $request->status);
             }
+
+            return back()->with('status', 'Akun ' . $petani->nama . ' ' . $request->status);
+        }
 
         $valid = $request->validate([
             'nama' => 'required|min:3',
             'alamat' => 'required|min:3',
+            'desa_id' => 'required',
             'nik' => 'required|numeric|digits:16',
             'no' => 'required|numeric|digits_between:7,16',
             'ktp' => 'image|file|max:2048'
         ]);
 
-        if($request->ktp){
+        if ($request->ktp) {
             File::delete($petani->ktp);
             $gambar = $request->ktp;
-            $new_gambar = time().' '.$request->nama.'.png';
-            Image::make($gambar)->save('img/foto-ktp/'.$new_gambar, 100, 'png');
-            $petani->ktp = 'img/foto-ktp/'.$new_gambar;
+            $new_gambar = time() . ' ' . $request->nama . '.png';
+            Image::make($gambar)->save('img/foto-ktp/' . $new_gambar, 100, 'png');
+            $petani->ktp = 'img/foto-ktp/' . $new_gambar;
         }
 
         $petani->nama = $valid['nama'];
         $petani->alamat = $valid['alamat'];
+        $petani->desa_id = $valid['desa_id'];
         $petani->nik = $valid['nik'];
         $petani->no = $valid['no'];
 
-        if($petani->ket){
+        if ($petani->ket) {
             $petani->users()->update([
                 'status' => 'Sedang Diproses'
             ]);
@@ -185,15 +187,15 @@ class PetaniController extends Controller
         $status = User::findorfail(Auth::id());
         $petani = Petani::where('user_id', $status->id)->first();
 
-        if ($status->status == 'Ditolak') {
-            return redirect('/petani/' . $petani->id . '/edit');
-        } elseif ($status->status == 'Sedang Diproses') {
-            return redirect('/petani');
-        }
+        // if ($status->status == 'Ditolak') {
+        //     return redirect('/petani/' . $petani->id . '/edit');
+        // } elseif ($status->status == 'Sedang Diproses') {
+        //     return redirect('/petani');
+        // }
 
         $pesan = Pesan::with(['petanis', 'distributors'])->orderByDesc('updated_at')->where('petani_id', $petani->id)->first();
 
-        if ($pesan->status == 'Ditolak'){
+        if ($pesan->status == 'Ditolak') {
             return redirect('/petani');
         }
 
@@ -205,11 +207,11 @@ class PetaniController extends Controller
         $status = User::findorfail(Auth::id());
         $petani = Petani::where('user_id', $status->id)->first();
 
-        if ($status->status == 'Ditolak') {
-            return redirect('/petani/' . $petani->id . '/edit');
-        } elseif ($status->status == 'Sedang Diproses') {
-            return redirect('/petani');
-        }
+        // if ($status->status == 'Ditolak') {
+        //     return redirect('/petani/' . $petani->id . '/edit');
+        // } elseif ($status->status == 'Sedang Diproses') {
+        //     return redirect('/petani');
+        // }
 
         $distributor = Distributor::orderByDesc('updated_at')->cari(request(['search']))->paginate(10)->withQueryString();
         $search = $request->search;
@@ -222,11 +224,11 @@ class PetaniController extends Controller
         $status = User::findorfail(Auth::id());
         $petani = Petani::where('user_id', $status->id)->first();
 
-        if ($status->status == 'Ditolak') {
-            return redirect('/petani/' . $petani->id . '/edit');
-        } elseif ($status->status == 'Sedang Diproses') {
-            return redirect('/petani');
-        }
+        // if ($status->status == 'Ditolak') {
+        //     return redirect('/petani/' . $petani->id . '/edit');
+        // } elseif ($status->status == 'Sedang Diproses') {
+        //     return redirect('/petani');
+        // }
 
         $pesan = Pesan::with('distributors')->where('petani_id', $petani->id)->orderByDesc('updated_at')->petani(request(['search']))->paginate(10)->withQueryString();
         $search = $request->search;

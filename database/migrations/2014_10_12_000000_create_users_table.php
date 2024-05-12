@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamp('username_verified_at')->nullable();
             $table->string('password');
             $table->string('kategori');
-            // $table->string('status');
+            $table->string('status');
             $table->rememberToken();
             $table->timestamps();
         });

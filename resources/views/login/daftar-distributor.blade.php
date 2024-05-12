@@ -31,10 +31,18 @@
         </div>
         <hr>
         <div class="form-group mb-3">
-            <label class="label" for="cv">Nama CV*</label>
+            <label class="label" for="cv">Nama Perusahan*</label>
             <input type="text" name="cv" class="form-control @error('cv') is-invalid @enderror"
-                placeholder="Nama Lengkap" value="{{ old('cv') }}" required>
+                placeholder="Nama Perusahan" value="{{ old('cv') }}" required>
             @error('cv')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="form-group mb-3">
+            <label class="label" for="direktur">Nama Direktur*</label>
+            <input type="text" name="direktur" class="form-control @error('direktur') is-invalid @enderror"
+                placeholder="Nama Lengkap Direktur" value="{{ old('direktur') }}" required>
+            @error('direktur')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>

@@ -29,8 +29,8 @@
                         <h3 class="my-2">{{ $item->judul }} <a href="/informasi-pupuk/{{ $item->slug }}"
                                 class="btn btn-outline-primary mx-3">Detail Berita</a></h3>
                         <span class="d-block my-1">{{ $item->kutipan }}</span>
+                    @endforeach
                 </div>
-                @endforeach
             </div>
             {{ $informasi->links() }}
         </div>

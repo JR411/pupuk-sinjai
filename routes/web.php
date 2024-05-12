@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DesaController;
 use App\Http\Controllers\DistributorController;
 use App\Http\Controllers\InformasiController;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,7 @@ Route::resource('/distributor', DistributorController::class)->middleware('auth'
 
 // Route::get('/pemerintah/validasi-petani', [PemerintahController::class, 'petani'])->middleware(['pemerintah', 'auth']);
 // Route::get('/pemerintah/validasi-distributor', [PemerintahController::class, 'distributor'])->middleware(['pemerintah', 'auth']);
+Route::resource('/pemerintah/data-desa', DesaController::class)->except('edit', 'show')->middleware(['pemerintah', 'auth']);
 Route::get('/pemerintah/riwayat-pesanan', [PemerintahController::class, 'riwayat'])->middleware(['pemerintah', 'auth']);
 Route::get('/pemerintah', [PemerintahController::class, 'index'])->middleware(['pemerintah', 'auth']);
 

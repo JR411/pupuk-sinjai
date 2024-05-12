@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('desas', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('nama_desa');
-            $table->foreignId('distributor_id')->constrained('distributors')->onUpdate('cascade')->onDelete('cascade');
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('status');
         });
     }
 
@@ -28,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('desas');
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('status');
+        });
     }
 };

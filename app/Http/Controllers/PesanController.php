@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Desa;
+use App\Models\Distributor;
 use Image;
 use App\Models\Pesan;
 use App\Models\Petani;
@@ -42,7 +44,7 @@ class PesanController extends Controller
             'alamat' => 'required|min:3',
             'luas' => 'required|numeric',
             'lahan' => 'required|image|file|max:2048',
-            'distributor_id' => 'required',
+            // 'distributor_id' => 'required',
             'lokasi' => ''
             // 'lat' => 'required',
             // 'long' => 'required'
@@ -55,8 +57,10 @@ class PesanController extends Controller
         $new_gambar = time() . ' ' . $petani->nama . '.png';
         Image::make($gambar)->save('img/foto-lahan/' . $new_gambar, 100, 'png');
 
+        $desa = Desa::where('id', $petani->desa_id)->first();
+
         $save->petani_id = $petani->id;
-        $save->distributor_id = $request->distributor_id;
+        $save->distributor_id = $desa->distributor_id;
         $save->alamat = $request->input('alamat');
         $save->luas = $request->input('luas');
         if ($request->lokasi) {

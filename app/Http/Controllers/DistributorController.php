@@ -30,11 +30,11 @@ class DistributorController extends Controller
 
         $user = User::findorfail(Auth::user()->id);
         $distributor = Distributor::where('user_id', Auth::user()->id)->first();
-        $pesan = Pesan::with('petanis')->where('distributor_id', $distributor->id)->where('status', '')->orwhere('status', null)->orderByDesc('updated_at')->paginate(10)->withQueryString();
+        $pesan = Pesan::with('petanis')->where('distributor_id', $distributor->id)->where('status', null)->orderByDesc('updated_at')->paginate(10)->withQueryString();
 
-        if ($user->status == 'Ditolak') {
-            return redirect('/distributor/' . $distributor->id . '/edit');
-        }
+        // if ($user->status == 'Ditolak') {
+        //     return redirect('/distributor/' . $distributor->id . '/edit');
+        // }
 
         return view('distributor.pengajuan-pupuk')->with(compact('distributor', 'pesan'));
     }
@@ -89,9 +89,9 @@ class DistributorController extends Controller
 
         $user = User::findorfail(Auth::user()->id);
 
-        if ($user->status == 'Sedang Diproses') {
-            return redirect('/distributor');
-        }
+        // if ($user->status == 'Sedang Diproses') {
+        //     return redirect('/distributor');
+        // }
 
         $distributor = Distributor::findorfail($id);
 
@@ -125,6 +125,7 @@ class DistributorController extends Controller
 
         $valid = $request->validate([
             'cv' => 'required|min:3',
+            'direktur' => 'required|min:3',
             'sk' => 'image|file|max:2048',
             'no' => 'required|numeric|digits_between:7,16',
             'rek' => '',
@@ -142,6 +143,7 @@ class DistributorController extends Controller
         }
 
         $distributor->cv = $valid['cv'];
+        $distributor->direktur = $valid['direktur'];
         $distributor->no = $valid['no'];
         $distributor->rek = $valid['rek'];
         $distributor->urea = $valid['urea'];
@@ -185,11 +187,11 @@ class DistributorController extends Controller
         $distributor = Distributor::where('user_id', Auth::user()->id)->first();
         $pesan = Pesan::with(['petanis', 'distributors'])->where('distributor_id', $distributor->id)->where('bayar', '1')->where('selesai', '0')->orderByDesc('updated_at')->paginate(10)->withQueryString();
 
-        if ($user->status == 'Ditolak') {
-            return redirect('/distributor/' . $distributor->id . '/edit');
-        } elseif ($user->status == 'Sedang Diproses') {
-            return redirect('/distributor');
-        }
+        // if ($user->status == 'Ditolak') {
+        //     return redirect('/distributor/' . $distributor->id . '/edit');
+        // } elseif ($user->status == 'Sedang Diproses') {
+        //     return redirect('/distributor');
+        // }
 
         return view('distributor.data-pengiriman')->with(compact('distributor', 'pesan'));
     }
@@ -199,11 +201,11 @@ class DistributorController extends Controller
         $status = User::findorfail(Auth::id());
         $distributor = Distributor::where('user_id', $status->id)->first();
 
-        if ($status->status == 'Ditolak') {
-            return redirect('/distributor/' . $distributor->id . '/edit');
-        } elseif ($status->status == 'Sedang Diproses') {
-            return redirect('/distributor');
-        }
+        // if ($status->status == 'Ditolak') {
+        //     return redirect('/distributor/' . $distributor->id . '/edit');
+        // } elseif ($status->status == 'Sedang Diproses') {
+        //     return redirect('/distributor');
+        // }
 
         $pesan = Pesan::with('petanis')->where('distributor_id', $distributor->id)->orderByDesc('updated_at')->distributor(request(['search']))->paginate(10)->withQueryString();
         $search = $request->search;

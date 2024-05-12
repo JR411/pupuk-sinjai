@@ -30,7 +30,7 @@
                         <thead class="table-secondary text-center align-middle">
                             <tr>
                                 <th scope="col" rowspan="2">No</th>
-                                <th scope="col" rowspan="2">CV Distributor</th>
+                                <th scope="col" rowspan="2">Distributor</th>
                                 <th scope="col" rowspan="2">SK Izin</th>
                                 <th scope="col" rowspan="2">Lokasi Kantor</th>
                                 <th scope="col" colspan="3">Harga Pupuk (/Kg)</th>

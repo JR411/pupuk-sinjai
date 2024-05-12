@@ -3,13 +3,7 @@
 @section('card')
     <div class="row">
         <div class="text-start">
-            <h3 class="mt-5 text-white">
-                @if (auth()->user()->status == 'Disetujui')
-                    Pengajuan Pupuk
-                @else
-                    Sedang Diproses
-                @endif
-            </h3>
+            <h3 class="mt-5 text-white">Pengajuan Pupuk</h3>
         </div>
     </div>
     </header>
@@ -17,79 +11,70 @@
     <div class="content-box position-relative">
         <div class="mx-auto card col-10 mt-5">
             <div class="card-body">
-                @if (auth()->user()->status == 'Disetujui')
-                    <div class="mx-auto my-3 table-responsive">
-                        @if (session()->has('status'))
-                            <div class="alert alert-info alert-dismissible fade show" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-                        <table class="table table-hover table-bordered">
-                            <thead class="table-secondary text-center align-middle">
-                                <tr>
-                                    <th scope="col">No</th>
-                                    <th scope="col">Nama</th>
-                                    <th scope="col">Alamat Lahan</th>
-                                    <th scope="col">No HP</th>
-                                    <th scope="col">Luas Lahan</th>
-                                    <th scope="col">Foto Lahan</th>
-                                    <th scope="col">Lokasi Lahan</th>
-                                    <th scope="col">Tanggal Permintaan</th>
-                                    <th scope="col">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($pesan as $item)
-                                    @if ($item->petanis)
-                                        <tr>
-                                            <td class="text-center align-middle">{{ $pesan->firstItem() + $loop->index }}
-                                            </td>
-                                            <td class="text-center align-middle">{{ $item->petanis->nama }}</td>
-                                            <td class="text-center align-middle">{{ $item->alamat }}</td>
-                                            <td class="text-center align-middle">{{ $item->petanis->no }}</td>
-                                            <td class="text-center align-middle">{{ $item->luas }} m<sup>2</sup></td>
-                                            <td class="text-center align-middle"><img id="myImg-{{ $item->petanis->id }}"
-                                                    class="myImg" src="/{{ $item->lahan }}"
-                                                    alt="Foto Lahan {{ $item->petanis->nama }}"
-                                                    style="width:100%;max-width:300px">
-                                            </td>
-                                            <td class="text-center align-middle">
-                                                {!! $item->lokasi !!}
-                                                {{-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3973.545680511986!2d119.4290309798356!3d-5.176518781395466!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dbee289786b5bb5%3A0x917a63b2f22cc810!2sUIN%20Alauddin%20Makassar%20Kampus%201!5e0!3m2!1sid!2sid!4v1687003053768!5m2!1sid!2sid" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> --}}
-                                            </td>
-                                            <td class="text-center align-middle">{{ $item->created_at->format('j M Y') }}
-                                            </td>
-                                            <td class="text-center align-middle">
-                                                <form action="/pesan/{{ $item->id }}" method="post" class="d-inline">
-                                                    @method('put')
-                                                    @csrf
-                                                    <input type="checkbox" name="status" value="Diterima" checked hidden>
-                                                    <button type="submit" class="btn btn-success"
-                                                        onclick="return confirm('Terima Pengajuan Pupuk Oleh {{ $item->petanis->nama }}')">Terima</button>
-                                                </form>
-                                                <button type="button" class="btn btn-danger my-1" data-bs-toggle="modal"
-                                                    data-bs-target="#tolak{{ $item->petanis->id }}">Tolak</button>
-                                            </td>
-                                        </tr>
-                                        <div id="myModal-{{ $item->petanis->id }}" class="gambar">
-                                            <span class="close-{{ $item->petanis->id }} tutup">&times;</span>
-                                            <img class="gambar-content" id="img-{{ $item->petanis->id }}">
-                                            <div id="caption-{{ $item->petanis->id }}" class="caption"></div>
-                                        </div>
-                                    @endif
-                                @endforeach
-                            </tbody>
-                        </table>
+                <div class="mx-auto my-3 table-responsive">
+                    @if (session()->has('status'))
+                        <div class="alert alert-info alert-dismissible fade show" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                    <table class="table table-hover table-bordered">
+                        <thead class="table-secondary text-center align-middle">
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">Nama</th>
+                                <th scope="col">Alamat Lahan</th>
+                                <th scope="col">No HP</th>
+                                <th scope="col">Luas Lahan</th>
+                                <th scope="col">Foto Lahan</th>
+                                <th scope="col">Lokasi Lahan</th>
+                                <th scope="col">Tanggal Permintaan</th>
+                                <th scope="col">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($pesan as $item)
+                                @if ($item->petanis)
+                                    <tr>
+                                        <td class="text-center align-middle">{{ $pesan->firstItem() + $loop->index }}
+                                        </td>
+                                        <td class="text-center align-middle">{{ $item->petanis->nama }}</td>
+                                        <td class="text-center align-middle">{{ $item->alamat }}</td>
+                                        <td class="text-center align-middle">{{ $item->petanis->no }}</td>
+                                        <td class="text-center align-middle">{{ $item->luas }} m<sup>2</sup></td>
+                                        <td class="text-center align-middle"><img id="myImg-{{ $item->petanis->id }}"
+                                                class="myImg" src="/{{ $item->lahan }}"
+                                                alt="Foto Lahan {{ $item->petanis->nama }}"
+                                                style="width:100%;max-width:300px">
+                                        </td>
+                                        <td class="text-center align-middle">
+                                            {!! $item->lokasi !!}
+                                            {{-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3973.545680511986!2d119.4290309798356!3d-5.176518781395466!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dbee289786b5bb5%3A0x917a63b2f22cc810!2sUIN%20Alauddin%20Makassar%20Kampus%201!5e0!3m2!1sid!2sid!4v1687003053768!5m2!1sid!2sid" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> --}}
+                                        </td>
+                                        <td class="text-center align-middle">{{ $item->created_at->format('j M Y') }}
+                                        </td>
+                                        <td class="text-center align-middle">
+                                            <form action="/pesan/{{ $item->id }}" method="post" class="d-inline">
+                                                @method('put')
+                                                @csrf
+                                                <input type="checkbox" name="status" value="Diterima" checked hidden>
+                                                <button type="submit" class="btn btn-success"
+                                                    onclick="return confirm('Terima Pengajuan Pupuk Oleh {{ $item->petanis->nama }}')">Terima</button>
+                                            </form>
+                                            <button type="button" class="btn btn-danger my-1" data-bs-toggle="modal"
+                                                data-bs-target="#tolak{{ $item->petanis->id }}">Tolak</button>
+                                        </td>
+                                    </tr>
+                                    <div id="myModal-{{ $item->petanis->id }}" class="gambar">
+                                        <span class="close-{{ $item->petanis->id }} tutup">&times;</span>
+                                        <img class="gambar-content" id="img-{{ $item->petanis->id }}">
+                                        <div id="caption-{{ $item->petanis->id }}" class="caption"></div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
                     </div>
-                @else
-                    <div class="card-body d-flex justify-content-center mt-5">
-                        <img src="/img/seru-biru.png" alt="" width="65px">
-                    </div>
-                    <div class="d-flex justify-content-center mb-5">
-                        <h3 class="mt-3 text-primary">Data Akun Sedang Diproses</h3>
-                    </div>
-                @endif
-            </div>
         </div>
     </div>
 @endsection

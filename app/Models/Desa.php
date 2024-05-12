@@ -11,4 +11,9 @@ class Desa extends Model
 
     protected $guarded = ['id'];
     protected $hidden = ['user'];
+
+    public function distributors()
+    {
+        return $this->belongsTo(Distributor::class, 'distributor_id', 'id');
+    }
 }

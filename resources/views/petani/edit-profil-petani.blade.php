@@ -44,7 +44,21 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group mb-3 col-xl-6">
+                        <div class="form-group mb-3 col-xl-4">
+                            <label for="desa_id">Nama Desa</label>
+                               <select name="desa_id" class="form-select" required>
+                                <option value="" selected disabled hidden>Pilih Desa</option>
+                                @foreach ($desa as $item)
+                                    <option value="{{ $item->id }}"
+                                        {{ $item->id == old('desa_id') || $item->id == $petani->desa_id ? 'selected' : '' }}>
+                                        {{ $item->nama_desa }}</option>
+                                @endforeach
+                            </select>
+                            @error('desa_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group mb-3 col-xl-4">
                             <label for="nik" class="label mb-1">NIK</label>
                             <input type="text" name="nik" class="form-control @error('nik') is-invalid @enderror"
                                 placeholder="NIK" value="{{ old('nik', $petani->nik) }}" required>
@@ -52,7 +66,7 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="form-group mb-3 col-xl-6">
+                        <div class="form-group mb-3 col-xl-4">
                             <label for="no" class="label mb-1">No HP</label>
                             <input type="text" name="no" class="form-control @error('no') is-invalid @enderror"
                                 placeholder="No HP (08*******)" value="{{ old('no', $petani->no) }}" required>
