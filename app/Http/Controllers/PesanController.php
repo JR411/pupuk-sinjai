@@ -9,6 +9,7 @@ use App\Models\Pesan;
 use App\Models\Petani;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PesanController extends Controller
 {
@@ -57,10 +58,11 @@ class PesanController extends Controller
         $new_gambar = time() . ' ' . $petani->nama . '.png';
         Image::make($gambar)->save('img/foto-lahan/' . $new_gambar, 100, 'png');
 
-        $desa = Desa::where('id', $petani->desa_id)->first();
+        // $desa = Desa::where('id', $petani->desa_id)->first();
+        $kode = DB::table('valid_lokasis')->where('nama_desa', $petani->kelurahan)->first();
 
         $save->petani_id = $petani->id;
-        $save->distributor_id = $desa->distributor_id;
+        $save->distributor_id = $kode->distributor_id;
         $save->alamat = $request->input('alamat');
         $save->luas = $request->input('luas');
         if ($request->lokasi) {

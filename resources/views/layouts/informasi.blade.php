@@ -86,7 +86,7 @@
                             @if (Auth()->user()->kategori == 'Petani')
                                 <a href="/petani/{{ $petani->id }}/edit" class="dropdown-item">Edit Profil</a>
                             @elseif (Auth()->user()->kategori == 'Distributor')
-                                //
+                                <a href="/distributor/{{ $distributor->id }}/edit" class="dropdown-item">Edit Profil</a>
                             @elseif (Auth()->user()->kategori == 'Pemerintah')
                                 <button type="button" class="dropdown-item" data-bs-toggle="modal"
                                     data-bs-target="#editAkun-{{ $pemerintah->id }}">Edit Profil</button>

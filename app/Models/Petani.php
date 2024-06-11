@@ -14,9 +14,9 @@ class Petani extends Model
 
     public function scopeCari($query, array $cari)
     {
-        $query->when($cari['search'] ?? false, function($query, $search){
-            return $query->where('nama', 'like', '%'.$search.'%')
-                        ->orWhereYear('updated_at', 'like', '%'.$search.'%');
+        $query->when($cari['search'] ?? false, function ($query, $search) {
+            return $query->where('nama', 'like', '%' . $search . '%')
+                ->orWhereYear('updated_at', 'like', '%' . $search . '%');
         });
     }
 
@@ -27,6 +27,11 @@ class Petani extends Model
 
     public function petanis()
     {
-        return $this->hasMany(Petani::class, 'petani_id', 'id');
+        return $this->hasOne(Petani::class, 'petani_id', 'id');
+    }
+
+    public function desas()
+    {
+        return $this->belongsTo(Desa::class, 'desa_id', 'id');
     }
 }

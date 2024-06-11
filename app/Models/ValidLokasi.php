@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Desa extends Model
+class ValidLokasi extends Model
 {
     use HasFactory;
 
+    protected $table = ['valid_lokasis'];
     protected $guarded = ['id'];
     protected $hidden = ['user'];
 
@@ -19,6 +20,6 @@ class Desa extends Model
 
     public function petanis()
     {
-        return $this->hasOne(Petani::class, 'desa_id', 'id');
+        return $this->hasOne(Petani::class, 'kelurahan', 'id');
     }
 }

@@ -26,15 +26,25 @@
                     @method('put')
                     @csrf
                     <div class="row">
-                        <div class="form-group mb-3 col-xl-4">
-                            <label for="cv" class="label mb-1">Nama CV</label>
+                        <div class="form-group mb-3 col-xl-6">
+                            <label for="cv" class="label mb-1">Nama Perusahaan</label>
                             <input type="text" name="cv" class="form-control @error('cv') is-invalid @enderror"
-                                placeholder="Nama Lengkap" value="{{ old('cv', $distributor->cv) }}" required>
+                                placeholder="Nama Perusahaan" value="{{ old('cv', $distributor->cv) }}" required>
                             @error('cv')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="form-group mb-3 col-xl-4">
+                        <div class="form-group mb-3 col-xl-6">
+                            <label for="direktur" class="label mb-1">Nama Direktur</label>
+                            <input type="text" name="direktur" class="form-control @error('direktur') is-invalid @enderror"
+                                placeholder="Nama Lengkap Direktur" value="{{ old('direktur', $distributor->direktur) }}" required>
+                            @error('direktur')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group mb-3 col-xl-6">
                             <label for="no" class="label mb-1">No HP</label>
                             <input type="text" name="no" class="form-control @error('no') is-invalid @enderror"
                                 placeholder="No HP (08*******)" value="{{ old('no', $distributor->no) }}" required>
@@ -42,7 +52,7 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="form-group mb-3 col-xl-4">
+                        <div class="form-group mb-3 col-xl-6">
                             <label for="rek" class="label mb-1">No Rekening (nama bank)</label>
                             <input type="text" name="rek" class="form-control @error('rek') is-invalid @enderror"
                                 placeholder="No Rekening" value="{{ old('rek', $distributor->rek) }}" required>

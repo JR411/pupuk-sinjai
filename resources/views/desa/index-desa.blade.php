@@ -28,35 +28,55 @@
                             </tr>
                         </thead>
                         <tbody class="text-center">
-                            @foreach ($desa as $item)
+                            @php
+                                $i = 1;
+                            @endphp
+                            @foreach ($kode as $item)
                                 <tr>
-                                    <td class="text-center align-middle">{{ $desa->firstItem() + $loop->index }}</td>
-                                    <td class="text-center align-middle">{{ $item->nama_desa }}</td>
-                                    <td class="text-center align-middle">{{ $item->distributors->cv }}</td>
+                                    {{-- <td class="text-center align-middle">{{ $desa->firstItem() + $loop->index }}</td> --}}
+                                    <td class="text-center align-middle">{{ $i }}</td>
+                                    @php
+                                        $nama_kel = DB::table('wilayah')
+                                            ->where('kode', $item->nama_desa)
+                                            ->first();
+                                        // die(print_r($nama_kel));
+                                    @endphp
+                                    <td class="text-center align-middle">{{ $nama_kel->nama }}</td>
+
+                                    @php
+                                        $dist = DB::table('distributors')
+                                            ->where('id', $item->distributor_id)
+                                            ->first();
+                                        // die(print_r($nama_kel));
+                                    @endphp
+                                    <td class="text-center align-middle">{{ $dist->cv }}</td>
                                     <td class="text-center align-middle">
-                                        <button type="button" class="badge bg-warning text-white px-2 py-2 border-0"
+                                        {{-- <button type="button" class="badge bg-warning text-white px-2 py-2 border-0"
                                             data-bs-toggle="modal"
-                                            data-bs-target="#editDesa-{{ $item->id }}">Edit</button>
+                                            data-bs-target="#editDesa-{{ $item->id }}">Edit</button> --}}
                                         <form action="/pemerintah/data-desa/{{ $item->id }}" method="post"
                                             class="d-inline">
                                             @method('delete')
                                             @csrf
                                             <button class="badge bg-danger border-0 px-2 py-2 my-1"
-                                                onclick="return confirm('Hapus Desa {{ $item->nama_desa }}?')">Hapus</button>
+                                                onclick="return confirm('Hapus Desa {{ $nama_kel->nama }}?')">Hapus</button>
                                         </form>
                                     </td>
                                 </tr>
+                                @php
+                                    $i++;
+                                @endphp
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $desa->links() }}
+                    {{-- {{ $desa->links() }} --}}
                 </div>
             </div>
         </div>
     </div>
 @endsection
 
-@section('modal')
+{{-- @section('modal')
     @foreach ($desa as $item)
         <div class="modal fade" id="editDesa-{{ $item->id }}" tabindex="-1" aria-labelledby="editDesaLabel"
             aria-hidden="true">
@@ -104,4 +124,4 @@
             </div>
         </div>
     @endforeach
-@endsection
+@endsection --}}

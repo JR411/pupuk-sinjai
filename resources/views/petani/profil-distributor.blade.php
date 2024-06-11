@@ -3,7 +3,8 @@
 @section('card')
     <div class="row">
         <div class="text-start">
-            <h3 class="mt-5 text-white">Data Distributor</h3>
+            {{-- <h3 class="mt-5 text-white">Data Distributor Desa {{ $petani->desas->nama_desa }}</h3> --}}
+            <h3 class="mt-5 text-white">Data Distributor Desa {{ $nama_kel->nama }}</h3>
         </div>
     </div>
     </header>
@@ -21,48 +22,49 @@
                             {{ session('sukses') }}
                         </div>
                     @endif
-                    <form class="d-flex">
+                    {{-- <form class="d-flex">
                         <input class="form-control mb-4" type="text" name="search" value="{{ $search }}"
                             placeholder="Cari Data" aria-label="Search">
                         <button class="btn btn-info mb-4" type="submit">Cari</button>
-                    </form>
-                    <table class="table table-hover table-bordered">
-                        <thead class="table-secondary text-center align-middle">
-                            <tr>
-                                <th scope="col" rowspan="2">No</th>
-                                <th scope="col" rowspan="2">Distributor</th>
-                                <th scope="col" rowspan="2">SK Izin</th>
-                                <th scope="col" rowspan="2">Lokasi Kantor</th>
-                                <th scope="col" colspan="3">Harga Pupuk (/Kg)</th>
-                                <th scope="col" rowspan="2">No.Hp Distributor</th>
-                            </tr>
-                            <tr>
-                                <th scope="col">Urea</th>
-                                <th scope="col">ZA</th>
-                                <th scope="col">NPK</th>
-                            </tr>
-                        </thead>
+                    </form> --}}
+                    <table class="table table-hover">
                         <tbody>
-                            @foreach ($distributor as $item)
-                                <tr>
-                                    <td class="text-center align-middle">{{ $distributor->firstItem() + $loop->index }}</td>
-                                    <td class="text-center align-middle">{{ $item->cv }}</td>
-                                    <td class="text-center align-middle"><img id="myImg-{{ $item->id }}" class="myImg"
-                                            src="/{{ $item->sk }}" alt="Foto SK Izin {{ $item->cv }}"
-                                            style="width:100%;max-width:300px">
-                                    </td>
-                                    <td class="text-center align-middle">{!! $item->lokasi_dist !!}</td>
-                                      <td class="text-center align-middle">@rupiah($item->urea)</td>
-                                    <td class="text-center align-middle">@rupiah($item->za)</td>
-                                    <td class="text-center align-middle">@rupiah($item->npk)</td><td class="text-center align-middle">{{ $item->no }}</td>
-
-                                </tr>
-                                <div id="myModal-{{ $item->id }}" class="gambar">
-                                    <span class="close-{{ $item->id }} tutup">&times;</span>
-                                    <img class="gambar-content" id="img-{{ $item->id }}">
-                                    <div id="caption-{{ $item->id }}" class="caption"></div>
-                                </div>
-                            @endforeach
+                            <tr>
+                                <td>Nama Distributor</td>
+                                <td colspan="2">{{ $distributor->cv }}</td>
+                            </tr>
+                            <tr>
+                                <td>Nama Direktur</td>
+                                <td colspan="2">{{ $distributor->direktur }}</td>
+                            </tr>
+                            <tr>
+                                <td>No.HP Distributor</td>
+                                <td colspan="2">{{ $distributor->no }}</td>
+                            </tr>
+                            <tr>
+                                <td>SK Izin</td>
+                                <td colspan="2"><img id="myImg-{{ $distributor->id }}" class="myImg"
+                                        src="/{{ $distributor->sk }}" alt="Foto KTP {{ $distributor->cv }}"
+                                        style="width:100%;max-width:300px">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Lokasi Kantor</td>
+                                <td colspan="2">{!! $distributor->lokasi_dist !!}</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="3">Harga Pupuk (/Kg) :</td>
+                                <td>Urea</td>
+                                <td>@rupiah($distributor->urea)</td>
+                            </tr>
+                            <tr>
+                                <td>ZA</td>
+                                <td>@rupiah($distributor->za)</td>
+                            </tr>
+                            <tr>
+                                <td>NPK</td>
+                                <td>@rupiah($distributor->npk)</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -72,24 +74,22 @@
 @endsection
 
 @section('js')
-    @foreach ($distributor as $item)
-        <script>
-            var modal = document.getElementById('myModal-{{ $item->id }}');
+    <script>
+        var modal = document.getElementById('myModal-{{ $distributor->id }}');
 
-            var img = document.getElementById('myImg-{{ $item->id }}');
-            var modalImg = document.getElementById('img-{{ $item->id }}');
-            var captionText = document.getElementById('caption-{{ $item->id }}');
-            img.onclick = function() {
-                modal.style.display = "block";
-                modalImg.src = this.src;
-                captionText.innerHTML = this.alt;
-            }
+        var img = document.getElementById('myImg-{{ $distributor->id }}');
+        var modalImg = document.getElementById('img-{{ $distributor->id }}');
+        var captionText = document.getElementById('caption-{{ $distributor->id }}');
+        img.onclick = function() {
+            modal.style.display = "block";
+            modalImg.src = this.src;
+            captionText.innerHTML = this.alt;
+        }
 
-            var span = document.getElementsByClassName('close-{{ $item->id }}')[0];
+        var span = document.getElementsByClassName('close-{{ $distributor->id }}')[0];
 
-            span.onclick = function() {
-                modal.style.display = "none";
-            }
-        </script>
-    @endforeach
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+    </script>
 @endsection

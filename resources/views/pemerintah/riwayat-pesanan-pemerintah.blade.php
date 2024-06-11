@@ -24,6 +24,7 @@
                                 <th scope="col" rowspan="2">Nama Petani</th>
                                 <th scope="col" rowspan="2">No.Hp Petani</th>
                                 <th scope="col" rowspan="2">Distributor</th>
+                                <th scope="col" rowspan="2">Direktur</th>
                                 <th scope="col" rowspan="2">No.Hp Distributor</th>
                                 <th scope="col" rowspan="2">Alamat</th>
                                 <th scope="col" colspan="3">Pupuk (kg)</th>
@@ -59,6 +60,7 @@
                                     <td class="text-center align-middle">{{ $item->petanis->nama }}</td>
                                     <td class="text-center align-middle">{{ $item->petanis->no }}</td>
                                     <td class="text-center align-middle">{{ $item->distributors->cv }}</td>
+                                    <td class="text-center align-middle">{{ $item->distributors->direktur }}</td>
                                     <td class="text-center align-middle">{{ $item->distributors->no }}</td>
                                     <td class="text-center align-middle">{{ $item->alamat }}</td>
                                     <td class="text-center align-middle">{{ $pupuk_urea }} kg</td>

@@ -45,7 +45,8 @@
                     <input type="checkbox" name="tolak" value="0" checked hidden>
                     <div class="row">
                         <div class="col-6">
-                            <a href="/informasi-pupuk/{{ $informasi->slug }}" class="btn form-control btn-secondary">Kembali</a>
+                            <a href="/informasi-pupuk/{{ $informasi->slug }}"
+                                class="btn form-control btn-secondary">Kembali</a>
                         </div>
                         <div class="col-6">
                             <button type="submit" class="btn form-control btn-primary">Edit Informasi</button>

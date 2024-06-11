@@ -58,8 +58,7 @@
                             <strong class="ms-2">{{ Auth()->user()->username }}</strong>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                            <button type="button" class="dropdown-item" data-bs-toggle="modal"
-                                data-bs-target="#editAkun-{{ $distributor->id }}">Edit Profil</button>
+                            <a href="/distributor/{{ $distributor->id }}/edit" class="dropdown-item">Edit Profil</a>
                             <form action="/keluar" method="post">
                                 @csrf
                                 <button type="submiit" class="dropdown-item"> Keluar</button>

@@ -69,6 +69,29 @@ class LoginController extends Controller
             'kategori' => ''
         ]);
 
+
+        $lokasis = explode('.', $request->adadeh);
+
+        // Output each element of the
+        // resulting array
+        $i = 1;
+        foreach ($lokasis as $lok) {
+            $lokasi[$i] = $lok;
+
+            $i++;
+        }
+
+        $provinsi = $lokasi[1];
+        $kabupaten = $lokasi[1] . '.' . $lokasi[2];
+        $kecamatan = $lokasi[1] . '.' . $lokasi[2] . '.' . $lokasi[3];
+        $kelurahan = $lokasi[1] . '.' . $lokasi[2] . '.' . $lokasi[3] . '.' . $lokasi[4];
+
+        if ($kabupaten != '73.07') {
+            return back()->with('Gagal', 'Lokasi Anda Berada Diluar Kab. Sinjai');
+        }
+
+        // die(print_r($kabupaten));
+
         $user = new User();
         $user->username = $validated['username'];
         $user->password = Hash::make($validated['password']);
@@ -78,11 +101,11 @@ class LoginController extends Controller
         if ($user->kategori == 'Petani') {
             $valid = $request->validate([
                 'nama' => 'required|min:3',
-                'alamat' => 'required|min:3',
-                'desa_id' => 'required',
+                // 'alamat' => 'required|min:3',
+                // 'desa_id' => 'required',
                 'nik' => 'required|numeric|digits:16',
                 'no' => 'required|numeric|required|regex:/(08)[0-9]/|digits_between:10,13',
-                'ktp' => 'required|image|file|max:2048'
+                'ktp' => 'required|image|file|max:2048',
             ]);
 
             $gambar = $request->ktp;
@@ -91,11 +114,16 @@ class LoginController extends Controller
 
             $petani = new Petani();
             $petani->nama = $valid['nama'];
-            $petani->alamat = $valid['alamat'];
-            $petani->desa_id = $valid['desa_id'];
+            // $petani->alamat = $valid['alamat'];
+            // $petani->desa_id = $valid['desa_id'];
             $petani->nik = $valid['nik'];
             $petani->no = $valid['no'];
             $petani->ktp = 'img/foto-ktp/' . $new_gambar;
+            $petani->provinsi = $provinsi;
+            $petani->kabupaten = $kabupaten;
+            $petani->kecamatan = $kecamatan;
+            $petani->kelurahan = $kelurahan;
+
             $user->save();
             $petani->user_id = $user->id;
             $petani->save();

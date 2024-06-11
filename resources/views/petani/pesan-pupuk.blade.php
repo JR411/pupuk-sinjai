@@ -58,15 +58,24 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="luas">Lokasi</label>
+                        {{-- <label for="luas">Lokasi</label> --}}
                         {{-- <div id="map" style="width: 100%; height: 30vh;"></div>
                         <input id="lat" type="checkbox" name="lat" value="" checked hidden>
                         <input id="long" type="checkbox" name="long" value="" checked hidden> --}}
 
-                        <input type="text" class="form-control" name="lokasi"
+                        {{-- <input type="text" class="form-control" name="lokasi"
                             placeholder="Masukkan Lokasi Anda dari Maps">
                         <button type="button" class="btn btn-outline-light text-success p-0" data-bs-toggle="modal"
-                            data-bs-target="#ket">Keterangan</button>
+                            data-bs-target="#ket">Keterangan</button> --}}
+                        @php
+                            $petani = DB::table('petanis')->where('user_id', Auth::id())->first();
+                            $nama_kel = DB::table('wilayah')->where('kode', $petani->kelurahan)->first();
+
+                            $kode = DB::table('valid_lokasis')->where('nama_desa', $petani->kelurahan)->first();
+                            $dist = DB::table('distributors')->where('id', $kode->distributor_id)->first();
+                            // die(print_r($nama_kel->nama));
+                        @endphp
+                        <p>Anda berada pada wilayah <b>{{ $nama_kel->nama }}</b> yang distribusi oleh <b>{{ $dist->cv }}</b></p>
                     </div>
                     <div class="form-group mb-3">
                         <label class="label" for="lahan">Upload Foto Lahan*</label>

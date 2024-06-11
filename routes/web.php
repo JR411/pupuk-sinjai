@@ -43,6 +43,7 @@ Route::resource('/distributor', DistributorController::class)->middleware('auth'
 Route::resource('/pemerintah/data-desa', DesaController::class)->except('edit', 'show')->middleware(['pemerintah', 'auth']);
 Route::get('/pemerintah/riwayat-pesanan', [PemerintahController::class, 'riwayat'])->middleware(['pemerintah', 'auth']);
 Route::get('/pemerintah', [PemerintahController::class, 'index'])->middleware(['pemerintah', 'auth']);
+Route::post('/pemerintah/valid_lokasi', [DesaController::class, 'valid_lokasi'])->middleware(['pemerintah', 'auth']);
 
 Route::resource('/pemerintah/akun', UserController::class)->except('create', 'store', 'show')->middleware(['pemerintah', 'auth']);
 

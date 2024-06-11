@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 
 class PetaniController extends Controller
 {
@@ -207,16 +208,21 @@ class PetaniController extends Controller
         $status = User::findorfail(Auth::id());
         $petani = Petani::where('user_id', $status->id)->first();
 
+        $nama_kel = DB::table('wilayah')->where('kode', $petani->kelurahan)->first();
+        $valid_lokasi = DB::table('valid_lokasis')->where('nama_desa', $petani->kelurahan)->first();
+
+        $desa = Desa::where('id', $petani->desa_id)->first();
+
         // if ($status->status == 'Ditolak') {
         //     return redirect('/petani/' . $petani->id . '/edit');
         // } elseif ($status->status == 'Sedang Diproses') {
         //     return redirect('/petani');
         // }
 
-        $distributor = Distributor::orderByDesc('updated_at')->cari(request(['search']))->paginate(10)->withQueryString();
+        $distributor = Distributor::where('id', $valid_lokasi->distributor_id)->first();
         $search = $request->search;
 
-        return view('petani.profil-distributor')->with(compact('petani', 'distributor', 'search'));
+        return view('petani.profil-distributor')->with(compact('petani', 'distributor', 'nama_kel', 'search'));
     }
 
     public function riwayat(Request $request)
