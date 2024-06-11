@@ -69,29 +69,6 @@ class LoginController extends Controller
             'kategori' => ''
         ]);
 
-
-        $lokasis = explode('.', $request->adadeh);
-
-        // Output each element of the
-        // resulting array
-        $i = 1;
-        foreach ($lokasis as $lok) {
-            $lokasi[$i] = $lok;
-
-            $i++;
-        }
-
-        $provinsi = $lokasi[1];
-        $kabupaten = $lokasi[1] . '.' . $lokasi[2];
-        $kecamatan = $lokasi[1] . '.' . $lokasi[2] . '.' . $lokasi[3];
-        $kelurahan = $lokasi[1] . '.' . $lokasi[2] . '.' . $lokasi[3] . '.' . $lokasi[4];
-
-        if ($kabupaten != '73.07') {
-            return back()->with('Gagal', 'Lokasi Anda Berada Diluar Kab. Sinjai');
-        }
-
-        // die(print_r($kabupaten));
-
         $user = new User();
         $user->username = $validated['username'];
         $user->password = Hash::make($validated['password']);
@@ -107,6 +84,28 @@ class LoginController extends Controller
                 'no' => 'required|numeric|required|regex:/(08)[0-9]/|digits_between:10,13',
                 'ktp' => 'required|image|file|max:2048',
             ]);
+
+            $lokasis = explode('.', $request->adadeh);
+
+            // Output each element of the
+            // resulting array
+            $i = 1;
+            foreach ($lokasis as $lok) {
+                $lokasi[$i] = $lok;
+
+                $i++;
+            }
+
+            $provinsi = $lokasi[1];
+            $kabupaten = $lokasi[1] . '.' . $lokasi[2];
+            $kecamatan = $lokasi[1] . '.' . $lokasi[2] . '.' . $lokasi[3];
+            $kelurahan = $lokasi[1] . '.' . $lokasi[2] . '.' . $lokasi[3] . '.' . $lokasi[4];
+
+            if ($kabupaten != '73.07') {
+                return back()->with('Gagal', 'Lokasi Anda Berada Diluar Kab. Sinjai');
+            }
+
+            // die(print_r($kabupaten));
 
             $gambar = $request->ktp;
             $new_gambar = time() . ' ' . $request->nama . '.png';

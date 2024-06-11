@@ -40,7 +40,7 @@ Route::resource('/distributor', DistributorController::class)->middleware('auth'
 
 // Route::get('/pemerintah/validasi-petani', [PemerintahController::class, 'petani'])->middleware(['pemerintah', 'auth']);
 // Route::get('/pemerintah/validasi-distributor', [PemerintahController::class, 'distributor'])->middleware(['pemerintah', 'auth']);
-Route::resource('/pemerintah/data-desa', DesaController::class)->except('edit', 'show')->middleware(['pemerintah', 'auth']);
+Route::resource('/pemerintah/data-desa', DesaController::class)->except('edit', 'update', 'show')->middleware(['pemerintah', 'auth']);
 Route::get('/pemerintah/riwayat-pesanan', [PemerintahController::class, 'riwayat'])->middleware(['pemerintah', 'auth']);
 Route::get('/pemerintah', [PemerintahController::class, 'index'])->middleware(['pemerintah', 'auth']);
 Route::post('/pemerintah/valid_lokasi', [DesaController::class, 'valid_lokasi'])->middleware(['pemerintah', 'auth']);

@@ -1,4 +1,4 @@
-@extends('layouts.informasi')
+@extends('layouts.pemerintah')
 
 @section('card')
 
@@ -39,9 +39,9 @@ try {
                     </div> --}}
 
 
-                    <div class="mb-3">
+                    {{-- <div class="mb-3">
                         <label for="distributor_id">Distributor</label>
-                        <select name="distributor_id" class="form-select" required>
+                        <select name="distributor_id" id="distributor_id" class="form-select" required>
                             <option value="" selected disabled hidden>Pilih Distributor</option>
                             @foreach ($distributor as $dist)
                                 <option value="{{ $dist->id }}"
@@ -52,7 +52,7 @@ try {
                         @error('distributor_id')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
-                    </div>
+                    </div> --}}
 
 
 
@@ -78,28 +78,53 @@ try {
 
 
 
-                <select name="prov" id="prov" class="form-control" onchange="ajax(this.value)">
-                    <option value="">Provinsi</option>
-                    <?php
-                    $query = $db->prepare("SELECT kode,nama FROM wilayah WHERE CHAR_LENGTH(kode)=2 ORDER BY nama");
-                    // $query = $db->prepare("SELECT kode,nama FROM wilayah WHERE CHAR_LENGTH(kode)=5 ORDER BY nama");
-                    $query->execute();
-                    while ($data = $query->fetchObject())
-                        echo '<option value="' . $data->kode . '">' . $data->nama . '</option>';
-                    ?>
-                <select>
+                    <select name="prov" id="prov" class="form-control" onchange="ajax(this.value)">
+                        <option value="">Provinsi</option>
+                        <?php
+                        $query = $db->prepare("SELECT kode,nama FROM wilayah WHERE CHAR_LENGTH(kode)=2 ORDER BY nama");
+                        $query->execute();
+                        while ($data = $query->fetchObject())
+                            echo '<option value="' . $data->kode . '">' . $data->nama . '</option>';
+                        ?>
+                    <select>
 
+                    <tr id='kab_box' style="display: none;">
+                        <td>Kota/Kabupaten</td>
+                        <td>
+                            <select name="kab" class="form-control" id="kab" onchange="ajax(this.value)">
+                                <option value="">Pilih Kota/Kabupaten</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr id='kec_box' style="display: none;">
+                        <td>Kecamatan</td>
+                        <td>
+                            <select name="kec" class="form-control" id="kec" onchange="ajax(this.value)">
+                                <option value="">Pilih Kecamatan</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr id='kel_box' style="display: none;">
+                        <td>Kelurahan</td>
+                        <td>
+                            <select name="kel" class="form-control" id="kel" onchange="ajax(this.value)">
+                                <option value="">Pilih Kelurahan</option>
+                            </select>
+                        </td>
+                    </tr>
 
-			<?php foreach ($wil as $w) : ?>
-				<tr id='<?php echo $w[2]; ?>_box'>
-					<td><?php echo $w[1]; ?></td>
-					<td>
-						<select name="adadeh" class="form-control" id="<?php echo $w[2]; ?>" onchange="ajax(this.value)">
-							<option value="">Pilih <?php echo $w[1]; ?></option>
-						</select>
-					</td>
-				</tr>
-			<?php endforeach; ?>
+                    <!-- Distributor Options -->
+                    <tr id='distributor_box' style="display: none;">
+                        <td>Distributor</td>
+                        <td>
+                            <select name="distributor_id" class="form-control" id="distributor_id">
+                                <option value="" selected disabled hidden>Pilih Distributor</option>
+                                <?php foreach ($distributor as $dist): ?>
+                                    <option value="<?php echo $dist->id; ?>"><?php echo $dist->cv; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </td>
+                    </tr>
 
         @php
             endif;
@@ -133,8 +158,14 @@ try {
             my_ajax.onreadystatechange = stateChanged;
             my_ajax.open("GET", url, true);
             my_ajax.send(null);
+            if (id.length == 2) {
+                document.getElementById('distributor_box').style.display = 'table-row';
+            } else {
+                document.getElementById('distributor_box').style.display = 'none';
+            }
         }
     }
+
 
     function do_ajax() {
         if (window.XMLHttpRequest) return new XMLHttpRequest();

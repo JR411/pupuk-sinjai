@@ -41,7 +41,7 @@
                                 class="nav-link px-2 {{ Request::is('pemerintah') ? 'active' : 'text-white' }}">Data
                                 Akun</a></li>
                         <li><a href="/pemerintah/data-desa"
-                                class="nav-link px-2 {{ Request::is('pemerintah/data-desa') ? 'active' : 'text-white' }}">Data
+                                class="nav-link px-2 {{ Request::is('pemerintah/data-desa*') ? 'active' : 'text-white' }}">Data
                                 Desa</a></li>
                         {{-- <li><a href="/pemerintah/validasi-petani"
                                 class="nav-link px-2 {{ Request::is('pemerintah/validasi-petani') ? 'active' : 'text-white' }}">Validasi
@@ -83,7 +83,7 @@
                                 class="nav-link border-start px-2 {{ Request::is('pemerintah') ? 'active' : 'text-white' }}">Data
                                 Akun</a></li>
                         <li><a href="/pemerintah/data-desa"
-                                class="nav-link border-start px-2 {{ Request::is('pemerintah/data-desa') ? 'active' : 'text-white' }}">Data
+                                class="nav-link border-start px-2 {{ Request::is('pemerintah/data-desa*') ? 'active' : 'text-white' }}">Data
                                 Desa</a></li>
                         {{-- <li><a href="/pemerintah/validasi-petani"
                                 class="nav-link border-start px-2 {{ Request::is('pemerintah/validasi-petani') ? 'active' : 'text-white' }}">Validasi
